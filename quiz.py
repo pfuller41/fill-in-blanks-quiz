@@ -30,12 +30,16 @@ def choose_level():
     return choose_level()
 
 def play_game(questions, answers, blanks):
-  """this is where users are asked to input their responses, where the responses are tested and blanks are filled"""
-  index = 0
-  attempts = 1  #allows a loop
-  max_attempts = 3 #sets the  max number of incorrect attempts
+  """
+  Input: questions and answers from choose_level, the blanks list, max number of incorrect answers, user answers for each blank,
+  the index number of answer to match correct answers with blanks index.
+  Outputs: the number of attempts made, questions with each blank filled as the right answers are entered, incorrect message when
+  the wrong answer is entered or game over message if max number of incorrect answers entered, you win message and questions with
+  all the blanks filled.    
+  
+  """
+  index, attempts,max_attempts = 0, 1, 3
   while index < len(blanks) and attempts <= max_attempts: #looks through the list of answers and checks if they are correct or proceeds to incorrect answer
-    replaced = []   #creates a list to fill in quiz answers
     print questions
     user_input = raw_input("Enter your answer: " + blanks[index] + "").lower() #User inputs answer
     if user_input == answers[index]: # states answer is True
@@ -43,11 +47,10 @@ def play_game(questions, answers, blanks):
         questions = questions.replace(blanks[index], user_input) #replaces blanks with user input
         index += 1
     else:
-        print "Sorry, that is incorrect. This was attempt number " + str(attempts) #shows user how many attempts are left
+        print "Sorry, that is incorrect. This was attempt number " + str(attempts) #shows user how many attempts made
         attempts += 1
   if attempts > max_attempts:  #When user enters more than 3 incorrect answers the game ends
     print "No more tries, game over."
-        
   if index == len(blanks):  #When user enters all right answers prints you win and prints the question with all blanks filled
     print questions
     print "Congratulations,you win!\n"
